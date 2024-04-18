@@ -50,6 +50,17 @@ const Add_Product = async () => {
         if (responseData.success) {
             product.image = responseData.image_url;
             console.log(product);
+            //sending this data to addproduct endpoint using fetch api
+            await fetch("http://localhost:4000/addproduct",{
+                method:'POST',
+                headers:{
+                    Accept: 'application/json',
+                    'Content-Type':'application/json',
+                },
+                body:JSON.stringify(product),
+            }).then((resp)=>resp.json()).then((data)=>{
+                data.success?alert("Product Added"):alert("Failed")
+            })
         } else {
             console.error('Upload failed:', responseData.message);
         }
